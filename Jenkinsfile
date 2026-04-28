@@ -10,11 +10,11 @@ pipeline {
     }
 
     post {
-        success {
-            slackSend(channel: '#notificaciones-dev', message: '✅ Build exitoso.')
-        }
-        failure {
-            slackSend(channel: '#notificaciones-dev', message: '❌ Build fallido.')
-        }
+    success {
+        slackSend(channel: '#canala-nuevo', message: '✅ Build exitoso.')
     }
+    failure {
+        slackSend(channel: '#canala-nuevo', message: '❌ Build fallido.')
+    }
+}
 }
