@@ -2,9 +2,23 @@ pipeline {
     agent any
 
     stages {
+        stage('Initialize') {
+            steps {
+                slackSend(color: '#FFFF00', message: "🚀 Iniciando Pipeline: ${env.JOB_NAME} (Build #${env.BUILD_NUMBER})")
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Construyendo...'
+                echo 'Compilando el proyecto...'
+                sh 'echo "Ejecutando compilación..."'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Ejecutando pruebas unitarias...'
+                sh 'true'
             }
         }
     }
@@ -12,21 +26,21 @@ pipeline {
     post {
         always {
             slackSend(
-                channel: '#canala-nuevo',
-                message: "🚀 PIPELINE EJECUTADO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                color: '#439FE0',
+                message: "📌 PIPELINE TERMINADO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
 
         success {
             slackSend(
-                channel: '#canala-nuevo',
-                message: "✅ ÉXITO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                color: '#36a64f',
+                message: "✅ ÉXITO: ${env.JOB_NAME} #${env.BUILD_NUMBER} - COMPLETADO"
             )
         }
 
         failure {
             slackSend(
-                channel: '#canala-nuevo',
+                color: '#ff0000',
                 message: "❌ ERROR: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
