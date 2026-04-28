@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        LANG = "en_US.UTF-8"
+    }
+
     stages {
 
         stage('Initialize') {
@@ -15,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construyendo proyecto...'
-                bat 'echo Build ejecutado correctamente'
+                bat 'echo Build OK'
             }
         }
 
@@ -32,7 +36,6 @@ pipeline {
         success {
             slackSend(
                 color: '#36a64f',
-                channel: '#canala-nuevo',
                 message: "✅ ÉXITO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
@@ -40,7 +43,6 @@ pipeline {
         failure {
             slackSend(
                 color: '#ff0000',
-                channel: '#canala-nuevo',
                 message: "❌ ERROR: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
@@ -48,8 +50,7 @@ pipeline {
         always {
             slackSend(
                 color: '#439FE0',
-                channel: '#canala-nuevo',
-                message: "📌 FIN DEL PIPELINE: ${env.JOB_NAME}"
+                message: "📌 PIPELINE TERMINADO: ${env.JOB_NAME}"
             )
         }
     }
