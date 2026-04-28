@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SLACK_WEBHOOK_URL = 'PONER_AQUI'
+        SLACK_WEBHOOK_URL = credentials('slack-webhook')
     }
 
     stages {
@@ -16,15 +16,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Ejecutando script..."
                 bat 'script.bat'
             }
         }
 
         stage('Test') {
             steps {
-                echo "Simulando pruebas..."
-                bat 'echo Todo OK'
+                bat 'echo OK'
             }
         }
     }
