@@ -5,14 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construyendo...'
-                bat 'echo Build OK'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Ejecutando pruebas...'
-                bat 'echo Test OK'
             }
         }
     }
@@ -21,7 +13,7 @@ pipeline {
         always {
             slackSend(
                 channel: '#canala-nuevo',
-                message: "🚀 Pipeline ejecutado: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "🚀 PIPELINE EJECUTADO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
 
