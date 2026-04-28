@@ -10,8 +10,7 @@ pipeline {
         stage('Initialize') {
             steps {
                 slackSend(
-                    color: '#FFFF00',
-                    message: "🚀 INICIO del pipeline: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                    message: "INICIO del pipeline: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
                 )
             }
         }
@@ -35,22 +34,19 @@ pipeline {
 
         success {
             slackSend(
-                color: '#36a64f',
-                message: "✅ ÉXITO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "EXITO: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
 
         failure {
             slackSend(
-                color: '#ff0000',
-                message: "❌ ERROR: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "ERROR: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
 
         always {
             slackSend(
-                color: '#439FE0',
-                message: "📌 PIPELINE TERMINADO: ${env.JOB_NAME}"
+                message: "PIPELINE TERMINADO: ${env.JOB_NAME}"
             )
         }
     }
